@@ -31,10 +31,6 @@ public class Character : MonoBehaviour
         EventManager.OnLevelFinish.RemoveListener(() => StopAllCoroutines());
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-     //todo yerden küple triggerlandığında
-    }
 
     private void OnTriggerExit(Collider other)
     {

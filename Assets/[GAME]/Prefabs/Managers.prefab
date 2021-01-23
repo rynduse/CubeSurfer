@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4365314595085851730}
   - component: {fileID: -6944798614230777245}
   - component: {fileID: 4365314595085851735}
+  - component: {fileID: 8293320709705382193}
   - component: {fileID: 4365314595085851732}
   - component: {fileID: 4365314595085851733}
   m_Layer: 0
@@ -58,6 +59,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f0de87351af7db488037054762eadb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &8293320709705382193
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4365314595085851731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d264e8135709d1e43bc979b3c1546181, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boxList: []
 --- !u!114 &4365314595085851732
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -70,6 +84,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a640845d5a9d5f45865275dde9f5e09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _currentInput: 0
   _swipeResist: 70
 --- !u!114 &4365314595085851733
 MonoBehaviour:

@@ -8,12 +8,15 @@ public enum UserInput
     Tap,
     Left,
     Right,
+    Swipe,
 };
 
 
 public class InputManager : Singleton<InputManager>
 {
-    private UserInput _currentInput = UserInput.None;
+    public UserInput _currentInput = UserInput.None;
+    private float _deltaMousePosition;
+    public float DeltaMousePosition { get { return _deltaMousePosition; } private set { _deltaMousePosition = value; } }
 
     [SerializeField] private float _swipeResist = 70f;
     private float _swipeAngle = 0f;
@@ -57,36 +60,41 @@ public class InputManager : Singleton<InputManager>
     //    EventManager.OnSwipeDetected.Invoke();
     //}
 
-    public float MoveDirection()
-    {
-        _firstFinalDiff = _firstTouchPosition.x - _finalTouchPosition.x;
-        return _firstFinalDiff;
-    }
+    //public float MoveDirection()
+    //{
+    //    _firstFinalDiff = _firstTouchPosition.x - _finalTouchPosition.x;
+    //    return _firstFinalDiff;
+    //}
 
-    private bool GetMouseInput()
+    private void GetMouseInput()
     {
-        // Swipe/Click started
-        if (Input.GetMouseButtonDown(0))
+        _currentInput = UserInput.None;
+        if (Input.GetMouseButton(0))
         {
-            EventManager.OnSwipeDetected.Invoke();
-            //_firstFinalDiff = CharacterManager.Instance.Player.transform.position.x;
-            _currentInput = UserInput.None;
-            _firstTouchPosition = (Vector2)Input.mousePosition;
+            // Swipe/Click started
+            if (Input.GetMouseButtonDown(0))
+            {
+                EventManager.OnSwipeDetected.Invoke();
+                //_firstFinalDiff = CharacterManager.Instance.Player.transform.position.x;
+                _firstTouchPosition = (Vector2)Input.mousePosition;
+            }
+            if (Input.GetMouseButton(0))
+            {
+                _finalTouchPosition = (Vector2)Input.mousePosition;
+                //return true;
+                // Swipe/Click finished
+            }
+            DeltaMousePosition = _firstTouchPosition.x - _finalTouchPosition.x;
+            _firstTouchPosition = _finalTouchPosition;
+            _currentInput = UserInput.Swipe;
+            //else if(Input.GetMouseButtonUp(0))
+            //{
+            //    _finalTouchPosition = (Vector2)Input.mousePosition;
+            //    EventManager.OnSwipeCompleted.Invoke();
+            //    return true;
+            //}
         }
-        else if (Input.GetMouseButton(0))
-        {
-            _finalTouchPosition = (Vector2)Input.mousePosition;
-            return true;
-            // Swipe/Click finished
-        }
-        else if(Input.GetMouseButtonUp(0))
-        {
-            _finalTouchPosition = (Vector2)Input.mousePosition;
-            EventManager.OnSwipeCompleted.Invoke();
-            return true;
-        }
-
-        return false;
+        //return false;
     }
 
     private void SwipeDir()

@@ -49,7 +49,9 @@ public class CharacterController : MonoBehaviour, ICharacterController
 
     public void Move()
     {
-        currentX = InputManager.Instance.MoveDirection() / 5500f;
+        if (InputManager.Instance._currentInput != UserInput.Swipe)
+            return;
+        currentX = InputManager.Instance.DeltaMousePosition / 650f;
         //Vector3 movePosition =  new Vector3(-currentX,transform.position.y,transform.position.z);
         Vector3 movePosition = new Vector3(currentX, 0, 0);
         //Debug.Log("diff : " + InputManager.Instance.MoveDirection());

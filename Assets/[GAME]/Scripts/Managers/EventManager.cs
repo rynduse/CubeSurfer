@@ -20,6 +20,9 @@ public static class EventManager
     public static UnityEvent OnTapDetected = new UnityEvent();
     public static UnityEvent OnSwipeFail = new UnityEvent();
 
+    public static UnityEvent OnBoxCollected = new UnityEvent();
+    public static UnityEvent OnBoxDropped = new UnityEvent();
+
     public static UnityEvent OnObstacleCreated = new UnityEvent();
 
     public static UnityEvent OnPlayerStartedRunning = new UnityEvent();
