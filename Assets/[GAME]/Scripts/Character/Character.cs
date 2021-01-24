@@ -30,10 +30,4 @@ public class Character : MonoBehaviour
         CharacterManager.Instance.RemoveCharacter(this);
         EventManager.OnLevelFinish.RemoveListener(() => StopAllCoroutines());
     }
-
-
-    private void OnTriggerExit(Collider other)
-    {
-        //todo yerden küple triggerlanıp çıktığında
-    }
 }

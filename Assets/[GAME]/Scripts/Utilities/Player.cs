@@ -23,7 +23,7 @@ public class Player : MonoBehaviour
 
     IEnumerator MovePlayerDG()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.2f);
         transform.DOMoveY(0.5f * BoxManager.Instance.boxList.Count - 0.3f, 0.5f);
     }
 

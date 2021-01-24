@@ -12,6 +12,7 @@ public static class EventManager
 
     public static UnityEvent OnLevelStart = new UnityEvent();
     public static UnityEvent OnLevelFinish = new UnityEvent();
+    public static UnityEvent OnCoinMultiplayer = new UnityEvent();
 
     public static UnityEvent OnLevelSuccess = new UnityEvent();
     public static UnityEvent OnLevelFail = new UnityEvent();

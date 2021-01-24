@@ -16,10 +16,9 @@ public class CharacterController : MonoBehaviour, ICharacterController
     {
         if (Managers.Instance == null)
             return;
-        EventManager.OnLevelStart.AddListener(() => IsSurfing = true);
-        EventManager.OnLevelFinish.AddListener(() => IsSurfing = false);
-        EventManager.OnSwipeDetected.AddListener(() => IsMoving = true);
-        EventManager.OnSwipeCompleted.AddListener(() => IsMoving = false);
+
+        EventManager.OnGameStart.AddListener(CharacterStart);
+        EventManager.OnLevelFail.AddListener(Stay);
     }
 
     private void OnDisable()
@@ -27,10 +26,8 @@ public class CharacterController : MonoBehaviour, ICharacterController
         if (Managers.Instance == null)
             return;
 
-        EventManager.OnLevelStart.RemoveListener(() => IsSurfing = true);
-        EventManager.OnLevelFinish.RemoveListener(() => IsSurfing = false);
-        EventManager.OnSwipeDetected.RemoveListener(() => IsMoving = true);
-        EventManager.OnSwipeCompleted.RemoveListener(() => IsMoving = false);
+        EventManager.OnGameStart.RemoveListener(CharacterStart);
+        EventManager.OnLevelFail.RemoveListener(Stay);
     }
 
     private void Update()
@@ -66,8 +63,15 @@ public class CharacterController : MonoBehaviour, ICharacterController
         }
     }
 
+    public void CharacterStart()
+    {
+        IsSurfing = true;
+        IsMoving = true;
+    }
+
     public void Stay()
     {
         IsSurfing = false;
+        IsMoving = false;
     }
 }

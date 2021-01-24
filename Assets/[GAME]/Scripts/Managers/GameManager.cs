@@ -8,14 +8,15 @@ using UnityEngine.Serialization;
 public class GameManager : Singleton<GameManager>
 {
     public bool isGameStarted;
+    public int _coinAmount = 0;
 
     private void OnEnable()
     {
         if (Managers.Instance == null)
             return;
 
-
         EventManager.OnGameRestart.AddListener(GameRestart);
+        EventManager.OnGameStart.AddListener(StartGame);
     }
 
     private void OnDisable()
@@ -24,16 +25,23 @@ public class GameManager : Singleton<GameManager>
             return;
 
         EventManager.OnGameRestart.RemoveListener(GameRestart);
+        EventManager.OnGameStart.RemoveListener(StartGame);
     }
 
     public void StartGame()
     {
         if (isGameStarted)
             return;
-
-        EventManager.OnGameStart.Invoke();
+        EventManager.OnLevelStart.Invoke();
         isGameStarted = true;
+    }
 
+    public void GameOver()
+    {
+        if (!isGameStarted)
+            return;
+        isGameStarted = false;
+        EventManager.OnLevelFail.Invoke();
     }
 
     //public void GameEnd(Character champion)

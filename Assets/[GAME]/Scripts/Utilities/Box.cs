@@ -7,6 +7,7 @@ public class Box : MonoBehaviour, ICollactable
 {
     private Transform player;
     private Rigidbody rb;
+    public AudioSource audioSource;
     private void OnEnable()
     {
         if (Managers.Instance == null)
@@ -34,17 +35,29 @@ public class Box : MonoBehaviour, ICollactable
         BoxManager.Instance.boxList.Add(this);
         EventManager.OnBoxCollected.Invoke();
         transform.parent = player;
+        audioSource.Play();
     }
 
     public void DropBox()
     {
         if (BoxManager.Instance.boxList.Contains(this))
         {
+            GetComponent<BoxCollider>().isTrigger = false;
             transform.parent = null;
             BoxManager.Instance.boxList.Remove(this);
             rb.isKinematic = false;
             rb.useGravity = true;
-            GetComponent<BoxCollider>().isTrigger = false;
+            EventManager.OnBoxDropped.Invoke();
+        }
+    }
+
+    public void FinishDropBox()
+    {
+        if (BoxManager.Instance.boxList.Contains(this))
+        {
+            transform.parent = null;
+            BoxManager.Instance.boxList.Remove(this);
+            Destroy(this);
             EventManager.OnBoxDropped.Invoke();
         }
     }
@@ -53,7 +66,7 @@ public class Box : MonoBehaviour, ICollactable
     {
         if (BoxManager.Instance.boxList.Contains(this))
         {
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.2f);
             transform.DOMoveY(BoxManager.Instance.boxList.IndexOf(this) * 0.5f, 0.5f);
         }
     }

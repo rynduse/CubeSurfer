@@ -74,7 +74,10 @@ public class InputManager : Singleton<InputManager>
             // Swipe/Click started
             if (Input.GetMouseButtonDown(0))
             {
-                EventManager.OnSwipeDetected.Invoke();
+                if (!GameManager.Instance.isGameStarted)
+                {
+                    EventManager.OnGameStart.Invoke();
+                }
                 //_firstFinalDiff = CharacterManager.Instance.Player.transform.position.x;
                 _firstTouchPosition = (Vector2)Input.mousePosition;
             }
